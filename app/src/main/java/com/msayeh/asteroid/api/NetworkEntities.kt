@@ -28,3 +28,17 @@ fun NetworkAsteroidsContainer.asDomainModel(): List<Asteroid> {
         )
     }
 }
+
+@JsonClass(generateAdapter = true)
+data class ImageOfTheDay(
+    val url: String,
+    private val media_type: String,
+    val title: String
+) {
+    enum class MediaType {IMAGE, NON_IMAGE}
+
+    val mediaType: MediaType = when(media_type) {
+        "image" -> MediaType.IMAGE
+        else -> MediaType.NON_IMAGE
+    }
+}

@@ -50,7 +50,7 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun insertDummyData(adapter: MainAdapter) {
+    private fun insertDummyDataToAdapter(adapter: MainAdapter) {
         adapter.submitList(
             listOf(
                 Asteroid(

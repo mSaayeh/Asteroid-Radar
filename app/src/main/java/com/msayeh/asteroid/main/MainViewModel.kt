@@ -18,10 +18,12 @@ class MainViewModel : ViewModel() {
     init {
         viewModelScope.launch {
             repository.updateAsteroids()
+            repository.updateImageOfTheDay()
         }
     }
 
     val asteroids = repository.asteroids
+    val imageOfTheDay = repository.imageOfTheDay
 
     fun onAsteroidClicked(asteroid: Asteroid) {
         _navigateToDetails.postValue(asteroid)
