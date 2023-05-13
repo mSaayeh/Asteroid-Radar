@@ -8,13 +8,13 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.msayeh.asteroid.Asteroid
 import com.msayeh.asteroid.databinding.AsteroidItemBinding
 
-class MainAdapter : ListAdapter<Asteroid, AsteroidViewHolder>(AsteroidItemCallback()) {
+class MainAdapter(private val clickListener: AsteroidListener) : ListAdapter<Asteroid, AsteroidViewHolder>(AsteroidItemCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AsteroidViewHolder =
         AsteroidViewHolder.from(parent)
 
     override fun onBindViewHolder(holder: AsteroidViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item)
+        holder.bind(clickListener, item)
     }
 
 }
@@ -28,6 +28,10 @@ class AsteroidItemCallback : ItemCallback<Asteroid>() {
 
 }
 
+class AsteroidListener(val clickListener: (asteroid: Asteroid) -> Unit) {
+    fun onClick(asteroid: Asteroid) = clickListener(asteroid)
+}
+
 class AsteroidViewHolder private constructor(private val binding: AsteroidItemBinding) :
     ViewHolder(binding.root) {
     companion object {
@@ -38,8 +42,9 @@ class AsteroidViewHolder private constructor(private val binding: AsteroidItemBi
         }
     }
 
-    fun bind(asteroid: Asteroid) {
+    fun bind(asteroidListener: AsteroidListener, asteroid: Asteroid) {
         binding.asteroid = asteroid
+        binding.asteroidListener = asteroidListener
         binding.executePendingBindings()
     }
 }

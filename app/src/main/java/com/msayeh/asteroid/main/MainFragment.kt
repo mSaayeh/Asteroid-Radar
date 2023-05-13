@@ -5,6 +5,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.msayeh.asteroid.Asteroid
 import com.msayeh.asteroid.R
 import com.msayeh.asteroid.databinding.FragmentMainBinding
@@ -26,13 +27,22 @@ class MainFragment : Fragment() {
 
         setupRecyclerView(binding)
 
+        viewModel.navigateToDetails.observe(viewLifecycleOwner) {
+            it?.let {
+                findNavController().navigate(MainFragmentDirections.actionShowDetail(it))
+            }
+            viewModel.doneNavigating()
+        }
+
         setHasOptionsMenu(true)
 
         return binding.root
     }
 
     private fun setupRecyclerView(binding: FragmentMainBinding) {
-        val adapter = MainAdapter()
+        val adapter = MainAdapter(AsteroidListener {
+            viewModel.onAsteroidClicked(it)
+        })
         binding.asteroidRecycler.adapter = adapter
 
         viewModel.asteroids.observe(viewLifecycleOwner) {

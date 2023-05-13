@@ -7,12 +7,16 @@
         <variable
             name="asteroid"
             type="com.msayeh.asteroid.Asteroid" />
+        <variable
+            name="asteroidListener"
+            type="com.msayeh.asteroid.main.AsteroidListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/app_background">
+        android:background="@color/app_background"
+        android:onClick="@{() -> asteroidListener.onClick(asteroid)}">
 
         <TextView
             android:id="@+id/item_name"
