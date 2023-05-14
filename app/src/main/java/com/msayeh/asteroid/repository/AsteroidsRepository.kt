@@ -1,7 +1,6 @@
 package com.msayeh.asteroid.repository
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.liveData
 import androidx.lifecycle.map
 import com.msayeh.asteroid.Asteroid
 import com.msayeh.asteroid.Constants
@@ -9,6 +8,7 @@ import com.msayeh.asteroid.ImageOfTheDay
 import com.msayeh.asteroid.api.Network
 import com.msayeh.asteroid.api.NetworkImageOfTheDay
 import com.msayeh.asteroid.api.asDatabaseModel
+import com.msayeh.asteroid.api.getTodayFormattedDate
 import com.msayeh.asteroid.api.parseAsteroidsJsonResult
 import com.msayeh.asteroid.database.AsteroidsDatabase
 import com.msayeh.asteroid.database.asDomainModel
@@ -28,6 +28,13 @@ class AsteroidsRepository(private val database: AsteroidsDatabase) {
     suspend fun updateCaching() {
         updateAsteroids()
         updateImageOfTheDay()
+        clearOldCache()
+    }
+
+    private suspend fun clearOldCache() {
+        withContext(Dispatchers.IO) {
+            database.asteroidDao.deleteOldAsteroids(getTodayFormattedDate())
+        }
     }
 
     private suspend fun updateAsteroids() {

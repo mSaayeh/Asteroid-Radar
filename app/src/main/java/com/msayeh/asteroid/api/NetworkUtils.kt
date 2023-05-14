@@ -1,6 +1,5 @@
 package com.msayeh.asteroid.api
 
-import android.util.Log
 import com.msayeh.asteroid.Constants
 import org.json.JSONObject
 import java.text.SimpleDateFormat
@@ -56,4 +55,11 @@ private fun getNextSevenDaysFormattedDates(): ArrayList<String> {
     }
 
     return formattedDateList
+}
+
+fun getTodayFormattedDate(): String {
+    val calendar = Calendar.getInstance()
+    val currentTime = calendar.time
+    val dateFormat = SimpleDateFormat(Constants.API_QUERY_DATE_FORMAT, Locale.getDefault())
+    return dateFormat.format(currentTime)
 }

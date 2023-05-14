@@ -1,6 +1,8 @@
 package com.msayeh.asteroid
 
+import android.view.View
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.squareup.picasso.Picasso
@@ -49,4 +51,9 @@ fun ImageView.bindWithPicasso(imageOfTheDay: ImageOfTheDay?) {
         .into(this)
 
     contentDescription = imageOfTheDay.title
+}
+
+@BindingAdapter("goneIfNotNull")
+fun View.goneIfNotNull(it: Any?) {
+    visibility = if (it == null || (it as? List<*>)?.isEmpty() == true) View.VISIBLE else View.GONE
 }
