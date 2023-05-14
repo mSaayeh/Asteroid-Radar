@@ -2,6 +2,13 @@
 
 This repository contains the project files for the Asteroid Radar app, which was created as part of the Advanced Android Development with Kotlin course offered by Udacity.
 
+<div style="display: flex;">
+ <img width=180 height=400 src="images/main_list.jpeg" />
+ <img width=180 height=400 src="images/filters.jpeg" />
+ <img width=180 height=400 src="images/details.jpeg" />
+ <img width=180 height=400 src="images/error.jpeg" />
+</div>
+
 ## Overview
 
 The Asteroid Radar app is a project that retrieves a list of asteroids from the NASA NeoWs API, displays them in a RecyclerView, and allows the user to select an asteroid to see more details about it. The app also allows the user to save asteroids to a local database, and displays a list of saved asteroids on a separate screen.
