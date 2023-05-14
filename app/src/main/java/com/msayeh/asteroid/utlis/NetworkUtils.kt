@@ -1,6 +1,7 @@
-package com.msayeh.asteroid.api
+package com.msayeh.asteroid.utlis
 
-import com.msayeh.asteroid.Constants
+import com.msayeh.asteroid.api.NetworkAsteroid
+import com.msayeh.asteroid.api.NetworkAsteroidsContainer
 import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.*

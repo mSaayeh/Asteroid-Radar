@@ -3,15 +3,13 @@ package com.msayeh.asteroid.main
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.os.Build
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.msayeh.asteroid.Asteroid
+import com.msayeh.asteroid.domain.Asteroid
 import com.msayeh.asteroid.R
-import com.msayeh.asteroid.api.Network
 import com.msayeh.asteroid.database.AsteroidsDatabase
 import com.msayeh.asteroid.databinding.FragmentMainBinding
 

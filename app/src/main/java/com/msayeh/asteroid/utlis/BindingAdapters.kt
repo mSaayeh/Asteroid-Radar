@@ -1,9 +1,11 @@
-package com.msayeh.asteroid
+package com.msayeh.asteroid.utlis
 
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import com.msayeh.asteroid.R
+import com.msayeh.asteroid.domain.ImageOfTheDay
 import com.msayeh.asteroid.main.Status
 import com.squareup.picasso.Picasso
 

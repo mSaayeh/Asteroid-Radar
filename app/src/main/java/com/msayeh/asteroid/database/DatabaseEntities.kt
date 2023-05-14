@@ -2,8 +2,8 @@ package com.msayeh.asteroid.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.msayeh.asteroid.Asteroid
-import com.msayeh.asteroid.ImageOfTheDay
+import com.msayeh.asteroid.domain.Asteroid
+import com.msayeh.asteroid.domain.ImageOfTheDay
 
 @Entity(tableName = "asteroids")
 data class DatabaseAsteroid(

@@ -2,15 +2,15 @@ package com.msayeh.asteroid.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
-import com.msayeh.asteroid.Asteroid
-import com.msayeh.asteroid.Constants
-import com.msayeh.asteroid.ImageOfTheDay
+import com.msayeh.asteroid.domain.Asteroid
+import com.msayeh.asteroid.utlis.Constants
+import com.msayeh.asteroid.domain.ImageOfTheDay
 import com.msayeh.asteroid.api.Network
 import com.msayeh.asteroid.api.NetworkImageOfTheDay
 import com.msayeh.asteroid.api.asDatabaseModel
-import com.msayeh.asteroid.api.getEndOfWeekFormatted
-import com.msayeh.asteroid.api.getTodayFormattedDate
-import com.msayeh.asteroid.api.parseAsteroidsJsonResult
+import com.msayeh.asteroid.utlis.getEndOfWeekFormatted
+import com.msayeh.asteroid.utlis.getTodayFormattedDate
+import com.msayeh.asteroid.utlis.parseAsteroidsJsonResult
 import com.msayeh.asteroid.database.AsteroidsDatabase
 import com.msayeh.asteroid.database.asDomainModel
 import kotlinx.coroutines.Dispatchers

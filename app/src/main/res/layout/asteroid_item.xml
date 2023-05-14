@@ -6,7 +6,7 @@
     <data>
         <variable
             name="asteroid"
-            type="com.msayeh.asteroid.Asteroid" />
+            type="com.msayeh.asteroid.domain.Asteroid" />
         <variable
             name="asteroidListener"
             type="com.msayeh.asteroid.main.AsteroidListener" />

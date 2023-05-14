@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil.ItemCallback
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.msayeh.asteroid.Asteroid
+import com.msayeh.asteroid.domain.Asteroid
 import com.msayeh.asteroid.databinding.AsteroidItemBinding
 
 class MainAdapter(private val clickListener: AsteroidListener) : ListAdapter<Asteroid, AsteroidViewHolder>(AsteroidItemCallback()) {

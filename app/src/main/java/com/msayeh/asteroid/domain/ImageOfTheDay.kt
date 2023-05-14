@@ -1,4 +1,4 @@
-package com.msayeh.asteroid
+package com.msayeh.asteroid.domain
 
 data class ImageOfTheDay(
     val url: String,

@@ -7,7 +7,7 @@
 
         <variable
             name="asteroid"
-            type="com.msayeh.asteroid.Asteroid" />
+            type="com.msayeh.asteroid.domain.Asteroid" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

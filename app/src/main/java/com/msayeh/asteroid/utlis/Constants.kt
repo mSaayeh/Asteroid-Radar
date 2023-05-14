@@ -1,4 +1,4 @@
-package com.msayeh.asteroid
+package com.msayeh.asteroid.utlis
 
 object Constants {
     const val API_QUERY_DATE_FORMAT = "YYYY-MM-dd"

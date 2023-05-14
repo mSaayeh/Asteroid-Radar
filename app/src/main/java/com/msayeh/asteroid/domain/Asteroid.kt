@@ -1,4 +1,4 @@
-package com.msayeh.asteroid
+package com.msayeh.asteroid.domain
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

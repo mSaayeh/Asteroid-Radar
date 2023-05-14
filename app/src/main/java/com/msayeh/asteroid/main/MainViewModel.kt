@@ -3,10 +3,9 @@ package com.msayeh.asteroid.main
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.map
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
-import com.msayeh.asteroid.Asteroid
+import com.msayeh.asteroid.domain.Asteroid
 import com.msayeh.asteroid.database.AsteroidsDatabase
 import com.msayeh.asteroid.repository.AsteroidsRepository
 import kotlinx.coroutines.launch
