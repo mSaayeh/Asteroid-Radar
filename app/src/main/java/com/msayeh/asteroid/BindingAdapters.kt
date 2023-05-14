@@ -2,9 +2,9 @@ package com.msayeh.asteroid
 
 import android.view.View
 import android.widget.ImageView
-import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import com.msayeh.asteroid.main.Status
 import com.squareup.picasso.Picasso
 
 @BindingAdapter("statusIcon")
@@ -53,7 +53,12 @@ fun ImageView.bindWithPicasso(imageOfTheDay: ImageOfTheDay?) {
     contentDescription = imageOfTheDay.title
 }
 
-@BindingAdapter("goneIfNotNull")
-fun View.goneIfNotNull(it: Any?) {
-    visibility = if (it == null || (it as? List<*>)?.isEmpty() == true) View.VISIBLE else View.GONE
+@BindingAdapter("statusVisibility")
+fun View.statusVisibility(status: Status) {
+    visibility = if (status == Status.LOADING) View.VISIBLE else View.GONE
+}
+
+@BindingAdapter("messageVisibility")
+fun View.messageVisibility(status: Status?) {
+    visibility = if(status == Status.ERROR) View.VISIBLE else View.GONE
 }

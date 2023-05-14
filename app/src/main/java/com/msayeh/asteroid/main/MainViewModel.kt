@@ -15,6 +15,10 @@ class MainViewModel(private val database: AsteroidsDatabase) : ViewModel() {
     val navigateToDetails: LiveData<Asteroid?>
         get() = _navigateToDetails
 
+    private val _status = MutableLiveData(Status.LOADING)
+    val status: LiveData<Status>
+        get() = _status
+
     private val repository = AsteroidsRepository(database)
     init {
         viewModelScope.launch {
@@ -32,4 +36,18 @@ class MainViewModel(private val database: AsteroidsDatabase) : ViewModel() {
     fun doneNavigating() {
         _navigateToDetails.postValue(null)
     }
+
+    fun triggerDone() {
+        _status.postValue(Status.DONE)
+    }
+
+    fun triggerError() {
+        _status.postValue(Status.ERROR)
+    }
+
+    fun triggerLoading() {
+        _status.postValue(Status.LOADING)
+    }
 }
+
+enum class Status { LOADING, ERROR, DONE }

@@ -1,13 +1,17 @@
 package com.msayeh.asteroid.main
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.msayeh.asteroid.Asteroid
 import com.msayeh.asteroid.R
+import com.msayeh.asteroid.api.Network
 import com.msayeh.asteroid.database.AsteroidsDatabase
 import com.msayeh.asteroid.databinding.FragmentMainBinding
 
@@ -32,6 +36,7 @@ class MainFragment : Fragment() {
         binding.viewModel = viewModel
 
         setupRecyclerView(binding)
+        viewModel.triggerLoading()
 
         viewModel.navigateToDetails.observe(viewLifecycleOwner) {
             it?.let {
@@ -53,7 +58,22 @@ class MainFragment : Fragment() {
 
         viewModel.asteroids.observe(viewLifecycleOwner) {
             adapter.submitList(it)
+            if (it.isNotEmpty()) {
+                viewModel.triggerDone()
+            } else if(isInternetConnected()) {
+                viewModel.triggerLoading()
+            } else {
+                viewModel.triggerError()
+            }
         }
+    }
+
+    private fun isInternetConnected(): Boolean {
+        val connectivityManager =
+            context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork ?: return false
+        val capabilities = connectivityManager.getNetworkCapabilities(network) ?: return false
+        return capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
     }
 
     private fun insertDummyDataToAdapter(adapter: MainAdapter) {
