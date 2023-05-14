@@ -8,12 +8,18 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.msayeh.asteroid.Asteroid
 import com.msayeh.asteroid.R
+import com.msayeh.asteroid.database.AsteroidsDatabase
 import com.msayeh.asteroid.databinding.FragmentMainBinding
 
 class MainFragment : Fragment() {
 
+    private val database: AsteroidsDatabase by lazy {
+        AsteroidsDatabase.getInstance(requireContext())
+    }
+
     private val viewModel: MainViewModel by lazy {
-        ViewModelProvider(this)[MainViewModel::class.java]
+        val factory = MainViewModelFactory(database)
+        ViewModelProvider(this, factory)[MainViewModel::class.java]
     }
 
     override fun onCreateView(

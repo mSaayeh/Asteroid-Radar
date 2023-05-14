@@ -5,20 +5,20 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msayeh.asteroid.Asteroid
+import com.msayeh.asteroid.database.AsteroidsDatabase
 import com.msayeh.asteroid.repository.AsteroidsRepository
 import kotlinx.coroutines.launch
 
-class MainViewModel : ViewModel() {
+class MainViewModel(private val database: AsteroidsDatabase) : ViewModel() {
 
     private val _navigateToDetails = MutableLiveData<Asteroid?>()
     val navigateToDetails: LiveData<Asteroid?>
         get() = _navigateToDetails
 
-    private val repository = AsteroidsRepository()
+    private val repository = AsteroidsRepository(database)
     init {
         viewModelScope.launch {
-            repository.updateAsteroids()
-            repository.updateImageOfTheDay()
+            repository.updateCaching()
         }
     }
 
