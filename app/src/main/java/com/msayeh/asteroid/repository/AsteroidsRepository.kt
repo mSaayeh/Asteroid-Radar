@@ -8,6 +8,7 @@ import com.msayeh.asteroid.ImageOfTheDay
 import com.msayeh.asteroid.api.Network
 import com.msayeh.asteroid.api.NetworkImageOfTheDay
 import com.msayeh.asteroid.api.asDatabaseModel
+import com.msayeh.asteroid.api.getEndOfWeekFormatted
 import com.msayeh.asteroid.api.getTodayFormattedDate
 import com.msayeh.asteroid.api.parseAsteroidsJsonResult
 import com.msayeh.asteroid.database.AsteroidsDatabase
@@ -17,7 +18,21 @@ import kotlinx.coroutines.withContext
 import org.json.JSONObject
 
 class AsteroidsRepository(private val database: AsteroidsDatabase) {
+
     val asteroids: LiveData<List<Asteroid>> = database.asteroidDao.getAllAsteroids().map {
+        it.asDomainModel()
+    }
+
+    val todayAsteroids: LiveData<List<Asteroid>> = database.asteroidDao.getTodayAsteroids(
+        getTodayFormattedDate()
+    ).map {
+        it.asDomainModel()
+    }
+
+    val weekAsteroids: LiveData<List<Asteroid>> = database.asteroidDao.getAsteroidsInRange(
+        getTodayFormattedDate(),
+        getEndOfWeekFormatted()
+    ).map {
         it.asDomainModel()
     }
 

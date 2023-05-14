@@ -57,14 +57,14 @@ class MainFragment : Fragment() {
         binding.asteroidRecycler.adapter = adapter
 
         viewModel.asteroids.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
-            if (it.isNotEmpty()) {
+            if (!it.isNullOrEmpty()) {
                 viewModel.triggerDone()
             } else if(isInternetConnected()) {
                 viewModel.triggerLoading()
             } else {
                 viewModel.triggerError()
             }
+            adapter.submitList(it)
         }
     }
 
@@ -129,6 +129,11 @@ class MainFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.show_week_menu -> viewModel.updateFilter(Filter.WEEK)
+            R.id.show_today_menu -> viewModel.updateFilter(Filter.DAY)
+            else -> viewModel.updateFilter(Filter.SAVED)
+        }
         return true
     }
 }
