@@ -1,37 +1,51 @@
 package com.msayeh.asteroid.repository
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.liveData
+import androidx.lifecycle.map
 import com.msayeh.asteroid.Asteroid
 import com.msayeh.asteroid.Constants
-import com.msayeh.asteroid.api.ImageOfTheDay
+import com.msayeh.asteroid.ImageOfTheDay
 import com.msayeh.asteroid.api.Network
+import com.msayeh.asteroid.api.NetworkImageOfTheDay
+import com.msayeh.asteroid.api.asDatabaseModel
 import com.msayeh.asteroid.api.parseAsteroidsJsonResult
+import com.msayeh.asteroid.database.AsteroidsDatabase
+import com.msayeh.asteroid.database.asDomainModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
 
-class AsteroidsRepository {
-    private val _asteroids: MutableLiveData<List<Asteroid>> = MutableLiveData()
-    val asteroids: LiveData<List<Asteroid>>
-        get() = _asteroids
+class AsteroidsRepository(private val database: AsteroidsDatabase) {
+    val asteroids: LiveData<List<Asteroid>> = database.asteroidDao.getAllAsteroids().map {
+        it.asDomainModel()
+    }
 
-    private val _imageOfTheDay = MutableLiveData<ImageOfTheDay>()
-    val imageOfTheDay: LiveData<ImageOfTheDay>
-        get() = _imageOfTheDay
+    val imageOfTheDay: LiveData<ImageOfTheDay?> = database.imagesDao.getImageOfTheDay().map {
+        it?.asDomainModel()
+    }
 
     suspend fun updateAsteroids() {
         withContext(Dispatchers.IO) {
-            val rawData = Network.feed.getAsteroids(Constants.API_KEY)
-            _asteroids.postValue(parseAsteroidsJsonResult(JSONObject(rawData)))
+            try {
+                val rawData = Network.feed.getAsteroids(Constants.API_KEY)
+                val data = parseAsteroidsJsonResult(JSONObject(rawData))
+                database.asteroidDao.insertAll(*data.asDatabaseModel())
+            } catch (_: Exception) {
+                return@withContext
+            }
         }
     }
 
     suspend fun updateImageOfTheDay() {
         withContext(Dispatchers.IO) {
-            val imageOfTheDay = Network.feed.getImageOfTheDay(Constants.API_KEY)
-            if (imageOfTheDay.mediaType == ImageOfTheDay.MediaType.IMAGE)
-                _imageOfTheDay.postValue(imageOfTheDay)
+            try {
+                val imageOfTheDay = Network.feed.getImageOfTheDay(Constants.API_KEY)
+                if (imageOfTheDay.mediaType == NetworkImageOfTheDay.MediaType.IMAGE)
+                    database.imagesDao.insertImage(imageOfTheDay.asDatabaseModel())
+            } catch (_: Exception) {
+                return@withContext
+            }
         }
     }
 }

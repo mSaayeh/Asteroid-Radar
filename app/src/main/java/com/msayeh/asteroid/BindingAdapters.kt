@@ -3,7 +3,6 @@ package com.msayeh.asteroid
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import com.msayeh.asteroid.api.ImageOfTheDay
 import com.squareup.picasso.Picasso
 
 @BindingAdapter("statusIcon")

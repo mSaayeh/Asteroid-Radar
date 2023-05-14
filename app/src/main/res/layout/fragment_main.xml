@@ -6,7 +6,6 @@
         <variable
             name="viewModel"
             type="com.msayeh.asteroid.main.MainViewModel" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
